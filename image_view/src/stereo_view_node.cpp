@@ -117,11 +117,11 @@ StereoViewNode::StereoViewNode(const rclcpp::NodeOptions & options)
   std::string stereo_ns = rclcpp::expand_topic_or_service_name(
     "stereo", this->get_name(), this->get_namespace());
   std::string left_topic = rclcpp::expand_topic_or_service_name(
-    stereo_ns + "/left/" + rclcpp::expand_topic_or_service_name(
+    stereo_ns + "/left" + rclcpp::expand_topic_or_service_name(
       "image", this->get_name(), this->get_namespace()),
     this->get_name(), this->get_namespace());
   std::string right_topic = rclcpp::expand_topic_or_service_name(
-    stereo_ns + "/right/" + rclcpp::expand_topic_or_service_name(
+    stereo_ns + "/right" + rclcpp::expand_topic_or_service_name(
       "image", this->get_name(), this->get_namespace()),
     this->get_name(), this->get_namespace());
   std::string disparity_topic = rclcpp::expand_topic_or_service_name(

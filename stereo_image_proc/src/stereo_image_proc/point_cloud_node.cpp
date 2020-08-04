@@ -164,6 +164,9 @@ void PointCloudNode::imageCb(
   const sensor_msgs::msg::CameraInfo::ConstSharedPtr & r_info_msg,
   const stereo_msgs::msg::DisparityImage::ConstSharedPtr & disp_msg)
 {
+
+  RCLCPP_ERROR(this->get_logger(), "PC2: IMAGE RECEIVED!");
+
   // If there are no subscriptions for the point cloud, do nothing
   if (pub_points2_->get_subscription_count() == 0u) {
     return;
@@ -187,9 +190,13 @@ void PointCloudNode::imageCb(
   auto points_msg = std::make_shared<sensor_msgs::msg::PointCloud2>();
   points_msg->header = disp_msg->header;
   points_msg->height = mat.rows;
-  points_msg->width = mat.cols;
+  // points_msg->width = mat.cols;
+  points_msg->width = 3.0;
   points_msg->is_bigendian = false;
   points_msg->is_dense = false;  // there may be invalid points
+
+  RCLCPP_ERROR(this->get_logger(), "PC2: HEIGHT: %f!", points_msg->height);
+  // RCLCPP_ERROR(this->get_logger(), "PC2: WIDTH: %f!", points_msg->width);
 
   sensor_msgs::PointCloud2Modifier pcd_modifier(*points_msg);
 
@@ -277,6 +284,7 @@ void PointCloudNode::imageCb(
       "Could not fill color channel of the point cloud, "
       "unsupported encoding '%s'", encoding.c_str());
   }
+  RCLCPP_ERROR(this->get_logger(), "PC2: PUBLISHING SOMETHING!");
 
   pub_points2_->publish(*points_msg);
 }

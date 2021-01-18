@@ -41,20 +41,21 @@ def generate_launch_description():
 
     # Load composable container
     image_processing = actions.ComposableNodeContainer(
-        node_name='image_proc_container',
+        name='image_proc_container',
         package='rclcpp_components',
-        node_executable='component_container',
+        executable='component_container',
+        namespace='',
         composable_node_descriptions=[
             ComposableNode(
                 package='image_proc',
-                node_plugin='image_proc::DebayerNode',
-                node_name='debayer_node',
+                plugin='image_proc::DebayerNode',
+                name='debayer_node',
             ),
             # Example of rectifying an image
             ComposableNode(
                 package='image_proc',
-                node_plugin='image_proc::RectifyNode',
-                node_name='rectify_mono_node',
+                plugin='image_proc::RectifyNode',
+                name='rectify_mono_node',
                 # Remap subscribers and publishers
                 remappings=[
                     # Subscriber remap
@@ -66,8 +67,8 @@ def generate_launch_description():
             # Example of rectifying an image
             ComposableNode(
                 package='image_proc',
-                node_plugin='image_proc::RectifyNode',
-                node_name='rectify_color_node',
+                plugin='image_proc::RectifyNode',
+                name='rectify_color_node',
                 # Remap subscribers and publishers
                 remappings=[
                     # Subscriber remap
